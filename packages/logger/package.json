@@ -1,0 +1,33 @@
+{
+  "name": "@DSAV-CQRSES-ATAM-parametic-model/logger",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Nest JS logger module for project",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npx tsc --build tsconfig.json",
+    "lint": "npx eslint . --ext ts,tsx --max-warnings 0 --fix",
+    "clean": "npx rimraf ./.turbo ./node_modules ./dist ./coverage ./tsconfig.tsbuildinfo || exit 0",
+    "test": "npx jest --coverage --verbose",
+    "watch": "npx tsc -w --preserveWatchOutput",
+    "check-types": "npx tsc -p ./tsconfig.json --pretty --noEmit"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.9",
+    "capture-console": "^1.0.2",
+    "nestjs-pino": "^4.5.0",
+    "pino": "10.1.0",
+    "pino-http": "11.0.0"
+  },
+  "devDependencies": {
+    "@DSAV-CQRSES-ATAM-parametic-model/eslint-config": "*",
+    "@DSAV-CQRSES-ATAM-parametic-model/jest-config": "*",
+    "@DSAV-CQRSES-ATAM-parametic-model/tsconfig": "*",
+    "@types/capture-console": "^1"
+  }
+}

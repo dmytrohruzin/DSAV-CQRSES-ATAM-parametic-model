@@ -1,0 +1,10 @@
+{
+  "extends": "@DSAV-CQRSES-ATAM-parametic-model/tsconfig/nestjs.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "include": [
+    "src"
+  ]
+}
