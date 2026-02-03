@@ -29,7 +29,7 @@ export class CarRepository {
       const aggregateFromCache = this.cache[id]
 
       const events = await this.eventStore.getEventsByAggregateId(id, aggregateFromCache.version || 0)
-      const aggregate: CarAggregate = events.reduce(this.replayEvent, aggregateFromCache)
+      const aggregate: CarAggregate = events.reduce((agg, event) => this.replayEvent(agg, event), aggregateFromCache)
 
       this.cache[id] = aggregate
 
@@ -38,7 +38,10 @@ export class CarRepository {
 
     const snapshot = await this.snapshotRepository.getLatestSnapshotByAggregateId<CarAggregate>(id)
     const events = await this.eventStore.getEventsByAggregateId(id, snapshot?.aggregateVersion || 0)
-    const aggregate: CarAggregate = events.reduce(this.replayEvent, new CarAggregate(snapshot))
+    const aggregate: CarAggregate = events.reduce(
+      (agg, event) => this.replayEvent(agg, event),
+      new CarAggregate(snapshot)
+    )
 
     this.cache[id] = aggregate
 

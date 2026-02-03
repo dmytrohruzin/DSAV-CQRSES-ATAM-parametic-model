@@ -40,7 +40,7 @@ export class WorkRepository {
       const aggregateFromCache = this.cache[id]
 
       const events = await this.eventStore.getEventsByAggregateId(id, aggregateFromCache.version || 0)
-      const aggregate: WorkAggregate = events.reduce(this.replayEvent, aggregateFromCache)
+      const aggregate: WorkAggregate = events.reduce((agg, event) => this.replayEvent(agg, event), aggregateFromCache)
 
       this.cache[id] = aggregate
 
@@ -49,7 +49,10 @@ export class WorkRepository {
 
     const snapshot = await this.snapshotRepository.getLatestSnapshotByAggregateId<WorkAggregate>(id)
     const events = await this.eventStore.getEventsByAggregateId(id, snapshot?.aggregateVersion || 0)
-    const aggregate: WorkAggregate = events.reduce(this.replayEvent, new WorkAggregate(snapshot))
+    const aggregate: WorkAggregate = events.reduce(
+      (agg, event) => this.replayEvent(agg, event),
+      new WorkAggregate(snapshot)
+    )
 
     this.cache[id] = aggregate
 

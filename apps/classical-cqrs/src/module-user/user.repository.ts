@@ -24,7 +24,7 @@ export class UserRepository {
       const aggregateFromCache = this.cache[id]
 
       const events = await this.eventStore.getEventsByAggregateId(id, aggregateFromCache.version || 0)
-      const aggregate: UserAggregate = events.reduce(this.replayEvent, aggregateFromCache)
+      const aggregate: UserAggregate = events.reduce((agg, event) => this.replayEvent(agg, event), aggregateFromCache)
 
       this.cache[id] = aggregate
 
@@ -33,7 +33,10 @@ export class UserRepository {
 
     const snapshot = await this.snapshotRepository.getLatestSnapshotByAggregateId<UserAggregate>(id)
     const events = await this.eventStore.getEventsByAggregateId(id, snapshot?.aggregateVersion || 0)
-    const aggregate: UserAggregate = events.reduce(this.replayEvent, new UserAggregate(snapshot))
+    const aggregate: UserAggregate = events.reduce(
+      (agg, event) => this.replayEvent(agg, event),
+      new UserAggregate(snapshot)
+    )
 
     this.cache[id] = aggregate
 
