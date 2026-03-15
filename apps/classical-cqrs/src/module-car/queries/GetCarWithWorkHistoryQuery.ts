@@ -1,4 +1,4 @@
-export class GetCarWithWorkHistoryQuery {
-  // Not implemented
-  // TODO: Implement for MVP version
-}
+// export class GetCarWithWorkHistoryQuery {
+//  Not implemented
+//  TODO: Implement for MVP version
+// }

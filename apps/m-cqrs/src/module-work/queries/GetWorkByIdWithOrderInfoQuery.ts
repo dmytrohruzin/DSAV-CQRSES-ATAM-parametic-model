@@ -1,4 +1,4 @@
-export class GetWorkByIdWithOrderInfoQuery {
-  // Not implemented
-  // TODO: Implement for MVP version
-}
+// export class GetWorkByIdWithOrderInfoQuery {
+//  Not implemented
+//  TODO: Implement for MVP version
+// }
