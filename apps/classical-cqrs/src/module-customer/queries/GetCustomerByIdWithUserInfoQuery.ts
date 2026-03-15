@@ -1,3 +1,4 @@
-export class GetCustomerByIdWithUserInfoQuery {
-  constructor(public readonly id: string) {}
-}
+// export class GetCustomerByIdWithUserInfoQuery {
+//  Not implemented
+//  TODO: Implement for MVP version
+// }
